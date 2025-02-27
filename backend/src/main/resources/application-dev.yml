@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/desafiotodb;INIT=CREATE SCHEMA IF NOT EXISTS DESAFIO\;SET SCHEMA DESAFIO
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect # Dialeto correto para H2
+    hibernate:
+      ddl-auto: update # Atualiza automaticamente o schema
+    properties:
+      hibernate:
+        default_schema: DESAFIO # Define o schema padrão
+  h2:
+    console:
+      enabled: true
+      path: /desafio-h2-console
+      settings:
+        web-allow-others: true
+
+server:
+  address: 127.0.0.1
+  port: 8080 # Porta exclusiva para o Desafio Service

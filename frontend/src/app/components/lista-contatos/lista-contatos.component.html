@@ -1,0 +1,141 @@
+<div class="container mt-5">
+ 
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Lista de Contatos</h2>
+    <button class="btn btn-danger" (click)="logout()">Sair</button>
+  </div>
+
+   <!-- Mensagem de Sucesso -->
+   <div *ngIf="mensagemSucesso" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ mensagemSucesso }}
+    <button type="button" class="btn-close" (click)="fecharMensagem()" aria-label="Close"></button>
+  </div>
+
+  <!-- Mensagem de Erro -->
+  <div *ngIf="mensagemErro" class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ mensagemErro }}
+    <button type="button" class="btn-close" (click)="fecharMensagem()" aria-label="Close"></button>
+  </div>
+
+  <!-- Formulário para adicionar novo contato -->
+  <form [formGroup]="formGroup" (ngSubmit)="adicionarContato()" class="mb-4">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="nome" class="form-label">Nome:</label>
+        <input
+          type="text"
+          id="nome"
+          class="form-control"
+          formControlName="nome"
+          required
+        />
+        <div *ngIf="formGroup.get('nome')?.invalid && formGroup.get('nome')?.touched" class="text-danger">
+          O nome é obrigatório.
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="email" class="form-label">Email:</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          formControlName="email"
+          required
+        />
+        <div *ngIf="formGroup.get('email')?.invalid && formGroup.get('email')?.touched" class="text-danger">
+          Insira um email válido.
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="celular" class="form-label">Celular:</label>
+        <input
+          type="text"
+          id="celular"
+          class="form-control"
+          formControlName="celular"
+          required
+        />
+        <div *ngIf="formGroup.get('celular')?.invalid && formGroup.get('celular')?.touched" class="text-danger">
+          Insira um número de celular válido (10-11 dígitos).
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="telefone" class="form-label">Telefone:</label>
+        <input
+          type="text"
+          id="telefone"
+          class="form-control"
+          formControlName="telefone"
+        />
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="formGroup.invalid">
+      Adicionar Contato
+    </button>
+  </form>
+
+  <!-- Campo de Busca -->
+  <div class="mt-4">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Buscar por nome, email ou celular..."
+      [(ngModel)]="termoBusca"
+      (input)="filtrarContatos()"
+    />
+  </div>
+
+  <!-- Tabela de Contatos -->
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Celular</th>
+        <th>Telefone</th>
+        <th>Favorito</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contato of contatosFiltrados">
+        <td>{{ contato.nome }}</td>
+        <td>{{ contato.email }}</td>
+        <td>{{ contato.celular }}</td>
+        <td>{{ contato.telefone }}</td>
+        <td>
+          <button
+            class="btn btn-sm"
+            [ngClass]="contato.favorito ? 'btn-warning' : 'btn-outline-warning'"
+            (click)="toggleFavorito(contato)"
+            title="Marcar/Desmarcar como favorito"
+          >
+            ★
+          </button>
+        </td>
+        <td>
+          <div class="d-flex gap-2">
+            <button
+              class="btn btn-primary btn-sm"
+              (click)="editarContato(contato)"
+              title="Editar contato"
+            >
+              Editar
+            </button>
+            <button
+              class="btn btn-danger btn-sm"
+              (click)="excluirContato(contato.id)"
+              title="Excluir contato"
+            >
+              Excluir
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

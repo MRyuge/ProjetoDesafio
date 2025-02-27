@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-DesafioApplication<desafio>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.ryuge.desafio.DesafioApplication",
+            "projectName": "desafio",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
