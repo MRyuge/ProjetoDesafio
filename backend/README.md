@@ -159,7 +159,6 @@ Authorization: Bearer SEU_TOKEN
 
 ---
 
-## 🤖 **Desenvolvedor**
 - **Autor:** [Ryuge](https://github.com/MRyuge)  
 - **Contato:** ryuge@yahoo.com  
 
